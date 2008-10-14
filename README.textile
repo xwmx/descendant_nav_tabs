@@ -106,7 +106,7 @@ Note that the current_tab features of this plugin can be used without using the 
   <code>
     # _header.html.haml
     
-    = %ul.nav_bar
+    %ul.nav_bar
       %li
         %a#homeNav{ :href => "/" }
           Home
