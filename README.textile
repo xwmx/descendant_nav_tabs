@@ -65,7 +65,10 @@ By default, the current highlighted tab is derived from the current controller n
     protected
       
       def current_tab
-        @comment.commentable.is_a?(Post) ? 'posts' : 'photos'
+        case @comment.commentable
+        when Post then 'posts'
+        when Photo then 'photos'
+        end
       end
     
   </code>
