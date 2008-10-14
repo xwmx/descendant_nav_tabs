@@ -1,0 +1,121 @@
+h1. ActiveNavTabs
+
+Nav Tab helpers and controller filters for easily and quickly generating tabs using a decendent CSS selector to highlight the current active tab. More information on the ideas behind this can be found "in a discussion here":http://www.therailsway.com/2007/6/28/free-for-all-tab-helper-summary .
+
+To use, define an array of hashed tab definitions in ApplicationController using the active_nav_tabs filter using the :tabs => option. The order the tabs are defined in the array defines the order they will be displayed. Each tab can be defined using three options:
+
+_Required:_
+* :id - A string id for the tab. Must be unique. Ideally, this would be the controller name for the resource the tab is associated with since, by default, the active tab has an id the same as the current controller name.
+
+_Optional:_
+* :path - The path to the resource. If omitted, the path will be derived from the :id by adding a leading '/'.
+* :text - The text label displayed on the tab. If ommitted, the :id is capitalized and used instead.
+
+Note that the order of the array is the tab order.
+
+active_nav_tabs takes two additional parameters:
+* :active_tab_background - Set the background color of the active tab to a hex color value.
+* :reset_to_horizontal - Set to true in order to reset the list style to display horizonal tabs. If not set to true, tabs will be generated a naked unordered list.
+
+Example:
+
+<pre>
+  <code>
+    # in application.rb
+    
+    active_nav_tabs :tabs => [{:id => 'home', :path => '/'}, {:id => 'about'}, {:id => 'people', :text => 'Contributors'}],
+                    :active_tab_background => "0015FF",
+                    :reset_to_horizontal => true
+  </code>
+</pre>
+
+In your layouts, include the stylesheet using the stylesheet_include_css_nav_tabs helper and set the body css id to current_tab. Both of these are required in order to highlight the active tab. A "Haml":http://haml.hamptoncatlin.com/ example:
+
+<pre>
+  <code>
+    # application.html.haml
+    
+    %html
+      %head
+        ...
+        = stylesheet_include_css_nav_tabs
+        ...
+      %body{:id => current_tab}
+        ...
+  </code>
+</pre>
+
+To put the tabs (as an unordered list) in your views, use the nav_bar helper:
+
+<pre>
+  <code>
+    # _header.html.haml
+    
+    = nav_bar
+  </code>
+</pre>
+
+
+By default, the current highlighted tab is derived from the current controller name. This behavior can be customised by defining a current_tab method in the controller that requires the custom behavior. This will act as the last before filter, so it can depend on variables set in earlier filters.
+
+<pre>
+  <code>
+    # CommentsController
+    
+    protected
+      
+      def current_tab
+        @comment.commentable.is_a?(Post) ? 'posts' : 'photos'
+      end
+    
+  </code>
+</pre>
+
+h3. Other recommendations
+
+Note that the current_tab features of this plugin can be used without using the helpers to generate the nav_tabs and css as long as the css ids are defined properly and the body id is set to the current_tab helpers. The example above re-written with explicitly defined tabs (in Haml):
+
+<pre>
+  <code>
+    # site_stylesheet.css
+    ...
+    #home #homeNav, #about #aboutNav, #people #peopleNav {
+      background-color: #0015FF; }
+    ...
+  </code>
+</pre>
+
+<pre>
+  <code>
+    # application.html.haml
+    
+    %html
+      %head
+        ...
+        = stylesheet_link_tag('site_stylesheet')
+        ...
+      %body{:id => current_tab}
+        ...
+  </code>
+</pre>
+
+<pre>
+  <code>
+    # _header.html.haml
+    
+    = %ul.nav_bar
+      %li
+        %a#homeNav{ :href => "/" }
+          Home
+      %li
+        %a#aboutNav{ :href => "/about" }
+          About
+      %li
+        %a#peopleNav{ :href => "/people" }
+          Contributors
+  </code>
+</pre>
+
+
+Copyright (c) 2008 William Melody, released under the MIT license
+
