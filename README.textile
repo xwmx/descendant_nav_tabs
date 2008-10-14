@@ -2,7 +2,7 @@ h1. ActiveNavTabs
 
 Nav Tab helpers and controller filters for easily and quickly generating tabs using a decendent CSS selector to highlight the current active tab. More information on the ideas behind this can be found "in a discussion here":http://www.therailsway.com/2007/6/28/free-for-all-tab-helper-summary .
 
-To use, define an array of hashed tab definitions in ApplicationController using the active_nav_tabs filter using the :tabs => option. The order the tabs are defined in the array defines the order they will be displayed. Each tab can be defined using three options:
+To use, define an array of hashed tab definitions in ApplicationController with active_nav_tabs using the :tab option. The order the tabs are defined in the array defines the order they will be displayed. Each tab can be defined using three options:
 
 _Required:_
 * :id - A string id for the tab. Must be unique. Ideally, this would be the controller name for the resource the tab is associated with since, by default, the active tab has an id the same as the current controller name.
