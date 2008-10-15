@@ -10,10 +10,10 @@ module ActiveNavTabs
     #     * if :text is ommitted, the id is capitalized and used
     #   :active_tab_background => takes a hex color value
     def active_nav_tabs(options = {})
-      proc = lambda do |c|
-          c.instance_variable_set(:@tab_list, (options.delete(:tabs) || nil))
-          c.instance_variable_set(:@active_tab_background, (options.delete(:active_tab_background) || nil))
-          c.instance_variable_set(:@reset_to_horizontal, (options.delete(:reset_to_horizontal) || false))
+      proc = Proc.new do |c|
+          c.instance_variable_set(:@tab_list, options[:tabs])
+          c.instance_variable_set(:@active_tab_background, options[:active_tab_background])
+          c.instance_variable_set(:@reset_to_horizontal, options[:reset_to_horizontal])
       end
       before_filter(proc, options)
     end
@@ -49,4 +49,4 @@ module ActiveNavTabs
     end
   end
   
-end 
+end
