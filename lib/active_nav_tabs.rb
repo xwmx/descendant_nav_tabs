@@ -4,23 +4,25 @@ module ActiveNavTabs
     
     # Use ad a before_filter to define the the tab list.
     # Options:
-    #   :tabs => takes an array in this format:
+    #   :nav_tabs => takes an array in this format:
     #     [{:id => 'id', :path => '/path', :text => 'Text'}, ...]
     #     * if :path is ommitted, it is derived from the id by adding a leading '/'
     #     * if :text is ommitted, the id is capitalized and used
     #   :active_tab_background => takes a hex color value
-    def active_nav_tabs(options = {})
-      proc = Proc.new do |c|
-          c.instance_variable_set(:@tab_list, options[:tabs])
-          c.instance_variable_set(:@active_tab_background, options[:active_tab_background])
-          c.instance_variable_set(:@reset_to_horizontal, options[:reset_to_horizontal])
+    def active_nav_tabs(options = {}, &block)
+      block ||= lambda do |c|
+          c.nav_tabs              = options[:nav_tabs] || options[:tabs]
+          c.active_tab_background = options[:active_tab_background]
+          c.reset_to_horizontal   = options[:reset_to_horizontal]
       end
-      before_filter(proc, options)
+      before_filter(block, options)
     end
     
   end
 
   module InstanceMethods
+    
+    attr_accessor :nav_tabs, :active_tab_background, :reset_to_horizontal
     
     def render_with_tabs(*args)
       set_current_tab
