@@ -23,11 +23,13 @@ Example:
   <code>
     # in application.rb
     
-    active_nav_tabs :tabs => [{:id => 'home', :path => '/'}, {:id => 'about'}, {:id => 'people', :text => 'Contributors'}],
+    active_nav_tabs :nav_tabs => [{:id => 'home', :path => '/'}, {:id => 'about'}, {:id => 'people', :text => 'Contributors'}],
                     :active_tab_background => "0015FF",
                     :reset_to_horizontal => true
   </code>
 </pre>
+
+Alternatively, you can use active_nav_tabs as a normal before_filter and set the attributes on the controller itself. This is useful for using routes or instance methods in your nav tab definition.
 
 In your layouts, include the stylesheet using the stylesheet_include_css_nav_tabs helper and set the body css id to current_tab. Both of these are required in order to highlight the active tab. A "Haml":http://haml.hamptoncatlin.com/ example:
 
