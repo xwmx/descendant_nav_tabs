@@ -28,30 +28,23 @@ module ActiveNavTabs
     
     attr_accessor :nav_tabs, :active_tab_background, :reset_to_horizontal
     
-    def render_with_tabs(*args)
-      set_current_tab
-      render_without_tabs(*args)
-    end
     
   protected
     
     # Override in controller to customize when a tab is displayed.
     def current_tab
-      controller_name
+      @current_tab ||= controller_name
     end
 
-    def set_current_tab
-      @current_tab ||= current_tab
-    end
   end
   
   
   def self.included(base)
     base.extend ClassMethods
     base.helper ActiveNavTabsHelper
+    base.send :helper_method, :current_tab
     base.class_eval do
       include InstanceMethods
-      alias_method_chain :render, :tabs
     end
   end
   

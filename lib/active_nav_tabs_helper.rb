@@ -1,7 +1,4 @@
 module ActiveNavTabsHelper
-  def current_tab
-    @current_tab || controller.controller_name
-  end
   
   def stylesheet_include_css_nav_tabs
     return unless @nav_tabs && @nav_tabs.is_a?(Array) && @nav_tabs.first.is_a?(Hash)
