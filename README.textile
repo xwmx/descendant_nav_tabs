@@ -1,8 +1,8 @@
-h1. ActiveNavTabs
+h1. DescendantNavTabs
 
 Nav Tab helpers and controller filters for easily and quickly generating tabs using a decendent CSS selector to highlight the current active tab. More information on the ideas behind this can be found "in a discussion here":http://www.therailsway.com/2007/6/28/free-for-all-tab-helper-summary .
 
-To use, define an array of hashed tab definitions in ApplicationController with active_nav_tabs using the :tabs option. The order the tabs are defined in the array defines the order they will be displayed. Each tab can be defined using three options:
+To use, define an array of hashed tab definitions in ApplicationController with descendant_nav_tabs using the :tabs option. The order the tabs are defined in the array defines the order they will be displayed. Each tab can be defined using three options:
 
 _Required:_
 * :id - A string id for the tab. Must be unique. Ideally, this would be the controller name for the resource the tab is associated with since, by default, the active tab has an id the same as the current controller name.
@@ -13,7 +13,7 @@ _Optional:_
 
 Note that the order of the array is the tab order.
 
-active_nav_tabs takes two additional parameters:
+descendant_nav_tabs takes two additional parameters:
 * :active_tab_background - Set the background color of the active tab to a hex color value.
 * :reset_to_horizontal - Set to true in order to reset the list style to display horizonal tabs. If not set to true, tabs will be generated a naked unordered list.
 
@@ -23,13 +23,13 @@ Example:
   <code>
     # in application.rb
     
-    active_nav_tabs :nav_tabs => [{:id => 'home', :path => '/'}, {:id => 'about'}, {:id => 'people', :text => 'Contributors'}],
+    descendant_nav_tabs :nav_tabs => [{:id => 'home', :path => '/'}, {:id => 'about'}, {:id => 'people', :text => 'Contributors'}],
                     :active_tab_background => "0015FF",
                     :reset_to_horizontal => true
   </code>
 </pre>
 
-Alternatively, you can use active_nav_tabs as a normal before_filter and set the attributes on the controller itself. This is useful for using routes or instance methods in your nav tab definition.
+Alternatively, you can use descendant_nav_tabs as a normal before_filter and set the attributes on the controller itself. This is useful for using routes or instance methods in your nav tab definition.
 
 In your layouts, include the stylesheet using the stylesheet_include_css_nav_tabs helper and set the body css id to current_tab. Both of these are required in order to highlight the active tab. A "Haml":http://haml.hamptoncatlin.com/ example:
 

@@ -1,3 +1,3 @@
-require 'active_nav_tabs'
-ActionController::Base.class_eval { include ActiveNavTabs }
+require 'descendant_nav_tabs'
+ActionController::Base.class_eval { include DescendantNavTabs }
 

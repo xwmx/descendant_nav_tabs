@@ -1,5 +1,5 @@
-# ActiveNavTabs
-module ActiveNavTabs
+# DescendantNavTabs
+module DescendantNavTabs
   module ClassMethods
     
     # Use as a before_filter to define the the tab list.
@@ -9,7 +9,7 @@ module ActiveNavTabs
     #     * if :path is ommitted, it is derived from the id by adding a leading '/'
     #     * if :text is ommitted, the id is capitalized and used
     #   :active_tab_background => takes a hex color value
-    def active_nav_tabs(args, &block)
+    def descendant_nav_tabs(args, &block)
       if args.is_a?(Symbol)
         before_filter(args, &block)
       else
@@ -41,7 +41,7 @@ module ActiveNavTabs
   
   def self.included(base)
     base.extend ClassMethods
-    base.helper ActiveNavTabsHelper
+    base.helper DescendantNavTabsHelper
     base.send :helper_method, :current_tab
     base.class_eval do
       include InstanceMethods

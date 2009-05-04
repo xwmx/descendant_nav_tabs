@@ -1,4 +1,4 @@
-module ActiveNavTabsHelper
+module DescendantNavTabsHelper
   
   def stylesheet_include_css_nav_tabs
     return unless @nav_tabs && @nav_tabs.is_a?(Array) && @nav_tabs.first.is_a?(Hash)
